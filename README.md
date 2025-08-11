@@ -34,3 +34,71 @@ Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)
 
 ---
 
+## Arquitetura do Projeto
+
+### **Visão Geral**
+
+Este projeto implementa um pipeline ETL seguindo a **Medallion Architecture** para processamento e análise de dados históricos de preços de combustíveis. A arquitetura é composta por três camadas principais: Bronze (dados brutos), Silver (dados limpos e transformados) e Gold (dados agregados e enriquecidos).
+
+### **Fonte de Dados**
+
+- **Órgão**: Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)
+- **Formato**: CSVs semestrais (Histórico de preços)
+- **Disponibilidade**: [Portal de Dados Abertos do Governo Federal](https://dados.gov.br/dados/conjuntos-dados/serie-historica-de-precos-de-combustiveis-e-de-glp)
+- **Documentação**: [Informações sobre Levantamento de Preços de Combustíveis](https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/informacoes-levantamento-de-precos-de-combustiveis)
+
+### **Camadas da Arquitetura**
+
+#### **🥉 Bronze Layer - Ingestão Bruta**
+- **Objetivo**: Armazenamento de dados brutos sem transformações
+- **Implementação**: 
+  - Job Databricks para download automático de arquivos CSV
+  - Armazenamento no Databricks Catalog
+  - Formato: Delta Tables
+- **Características**:
+  - Preservação dos dados originais
+  - Versionamento de dados
+  - Auditoria completa
+
+#### **🥈 Silver Layer - Transformação e Limpeza**
+- **Objetivo**: Padronização e limpeza dos dados
+- **Transformações**:
+  - Conversão de tipos de dados
+  - Padronização de nomes de colunas
+  - Remoção de registros duplicados
+  - Validação de dados
+- **Qualidade**: Dados confiáveis e estruturados para análise
+
+#### **🥇 Gold Layer - Enriquecimento e Agregações**
+- **Objetivo**: Dados otimizados para consumo analítico
+- **Agregações**:
+  - Preço médio por cidade/estado/semana
+  - Índices de variação (% mensal, % anual)
+  - Análises temporais e geográficas
+- **Preparação**: Tabelas otimizadas para BI e Machine Learning
+
+### **Consumo e Visualização**
+
+#### **Business Intelligence**
+- **Dashboard Databricks**: Visualizações interativas e relatórios
+- **Databricks Genie**: Interface de consulta em linguagem natural
+
+#### **Machine Learning**
+- Dados preparados para modelos preditivos
+- Análise de tendências e padrões de preços
+- Forecasting de preços de combustíveis
+
+### **Estrutura do Projeto**
+
+```
+Databricks_ETL_Combustivel/
+├── 00_Architecture_Builder/     # Configuração do catálogo e esquemas
+├── 01_Bronze_Ingestion/        # Ingestão de dados brutos
+├── 02_Silver_Treatment/        # Transformação e limpeza
+├── 03_Gold_Enrichment/         # Agregações e enriquecimento
+├── 04_BI/                      # Dashboards e visualizações
+└── 05_Machine_Learn/           # Modelos de Machine Learning
+```
+
+---
+
