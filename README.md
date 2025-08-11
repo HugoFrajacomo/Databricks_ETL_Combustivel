@@ -40,6 +40,20 @@ Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)
 
 Este projeto implementa um pipeline ETL seguindo a **Medallion Architecture** para processamento e análise de dados históricos de preços de combustíveis. A arquitetura é composta por três camadas principais: Bronze (dados brutos), Silver (dados limpos e transformados) e Gold (dados agregados e enriquecidos).
 
+### **Tecnologias Utilizadas**
+
+| Categoria | Tecnologia | Descrição |
+|---|---|---|
+| **Linguagem de Programação** | Python | Linguagem principal para desenvolvimento dos pipelines ETL |
+| **Framework de Processamento** | Apache Spark | Engine distribuída para processamento de big data em larga escala |
+| **Plataforma de Dados** | Databricks | Plataforma unificada de analytics baseada em Apache Spark |
+| **Formato de Dados** | Delta Lake | Formato de armazenamento para data lakes com versionamento e ACID |
+| **Controle de Versão** | Git | Sistema de controle de versão distribuído para código e notebooks |
+| **Repositório** | GitHub | Plataforma de hospedagem e colaboração de código |
+| **Notebooks** | Databricks Notebooks | Ambiente interativo para desenvolvimento e documentação |
+| **Visualização** | Databricks Dashboards | Dashboards nativos para visualização de dados |
+| **IA Conversacional** | Databricks Genie | Interface de consulta em linguagem natural |
+
 ### **Fonte de Dados**
 
 - **Órgão**: Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)
@@ -49,7 +63,11 @@ Este projeto implementa um pipeline ETL seguindo a **Medallion Architecture** pa
 
 ### **Camadas da Arquitetura**
 
+A **Medallion Architecture** é um padrão de design para data lakes que organiza os dados em três camadas progressivas de qualidade e refinamento, garantindo flexibilidade, escalabilidade e governança de dados.
+
 #### **🥉 Bronze Layer - Ingestão Bruta**
+**Conceito**: Camada de armazenamento de dados brutos, exatamente como recebidos da fonte, sem qualquer transformação. Atua como um "backup" dos dados originais, preservando a integridade e permitindo reprocessamento quando necessário.
+
 - **Objetivo**: Armazenamento de dados brutos sem transformações
 - **Implementação**: 
   - Job Databricks para download automático de arquivos CSV
@@ -61,6 +79,8 @@ Este projeto implementa um pipeline ETL seguindo a **Medallion Architecture** pa
   - Auditoria completa
 
 #### **🥈 Silver Layer - Transformação e Limpeza**
+**Conceito**: Camada intermediária onde os dados passam por processos de limpeza, validação e padronização. Transforma dados brutos em datasets confiáveis e consistentes, servindo como base para análises e transformações posteriores.
+
 - **Objetivo**: Padronização e limpeza dos dados
 - **Transformações**:
   - Conversão de tipos de dados
@@ -70,6 +90,8 @@ Este projeto implementa um pipeline ETL seguindo a **Medallion Architecture** pa
 - **Qualidade**: Dados confiáveis e estruturados para análise
 
 #### **🥇 Gold Layer - Enriquecimento e Agregações**
+**Conceito**: Camada final que contém dados refinados, agregados e otimizados para consumo específico. Fornece datasets prontos para análises de negócio, relatórios e machine learning, com alta performance e usabilidade.
+
 - **Objetivo**: Dados otimizados para consumo analítico
 - **Agregações**:
   - Preço médio por cidade/estado/semana
