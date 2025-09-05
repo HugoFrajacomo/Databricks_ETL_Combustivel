@@ -15,24 +15,10 @@
       ]
     },
     {
-      "name": "1be9d576",
-      "displayName": "view_diesel_s10_cidade_rank",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_diesel_s10_cidade_rank"
-      ]
-    },
-    {
       "name": "40b06662",
       "displayName": "view_diesel_s10_estado_rank",
       "queryLines": [
         "SELECT * FROM gov_br_combustivel.gold_layer.view_diesel_s10_estado_rank"
-      ]
-    },
-    {
-      "name": "f11ffc35",
-      "displayName": "view_etanol_cidade_rank",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_etanol_cidade_rank"
       ]
     },
     {
@@ -43,24 +29,10 @@
       ]
     },
     {
-      "name": "51fb7a49",
-      "displayName": "view_gasolina_aditivada_cidade_rank",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_gasolina_aditivada_cidade_rank"
-      ]
-    },
-    {
       "name": "62902a72",
       "displayName": "view_gasolina_aditivada_estado_rank",
       "queryLines": [
         "SELECT * FROM gov_br_combustivel.gold_layer.view_gasolina_aditivada_estado_rank"
-      ]
-    },
-    {
-      "name": "68c8eeee",
-      "displayName": "view_gasolina_cidade_rank",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_gasolina_cidade_rank"
       ]
     },
     {
@@ -71,24 +43,10 @@
       ]
     },
     {
-      "name": "fa631f3c",
-      "displayName": "view_gnv_cidade_rank",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_gnv_cidade_rank"
-      ]
-    },
-    {
       "name": "baaa04d4",
       "displayName": "view_gnv_estado_rank",
       "queryLines": [
         "SELECT * FROM gov_br_combustivel.gold_layer.view_gnv_estado_rank"
-      ]
-    },
-    {
-      "name": "d2e8d7c8",
-      "displayName": "view_margem_por_bandeira",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_margem_por_bandeira"
       ]
     },
     {
@@ -99,67 +57,10 @@
       ]
     },
     {
-      "name": "4ceee805",
-      "displayName": "view_preco_por_bandeira",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_preco_por_bandeira"
-      ]
-    },
-    {
-      "name": "b262cf8a",
-      "displayName": "view_preco_produto",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_preco_produto"
-      ]
-    },
-    {
       "name": "0583fd15",
       "displayName": "view_variacao_anual",
       "queryLines": [
         "SELECT * FROM gov_br_combustivel.gold_layer.view_variacao_anual"
-      ]
-    },
-    {
-      "name": "dda883d9",
-      "displayName": "view_variacao_mensal_produto",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.gold_layer.view_variacao_mensal_produto"
-      ]
-    },
-    {
-      "name": "90a3e862",
-      "displayName": "fact_fuel",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.silver_layer.fact_fuel\r\n",
-        "INNER JOIN "
-      ]
-    },
-    {
-      "name": "4493066e",
-      "displayName": "dim_tempo",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.silver_layer.dim_tempo"
-      ]
-    },
-    {
-      "name": "deb626c8",
-      "displayName": "dim_produto",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.silver_layer.dim_produto"
-      ]
-    },
-    {
-      "name": "82d84f3b",
-      "displayName": "dim_localidade",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.silver_layer.dim_localidade"
-      ]
-    },
-    {
-      "name": "63d57139",
-      "displayName": "dim_revenda",
-      "queryLines": [
-        "SELECT * FROM gov_br_combustivel.silver_layer.dim_revenda"
       ]
     },
     {
@@ -185,27 +86,21 @@
       ]
     },
     {
-      "name": "698e05d9",
-      "displayName": "Localidade",
+      "name": "de6710c7",
+      "displayName": "wide_table",
       "queryLines": [
-        "SELECT \r\n",
-        "    'Brasil' AS Pais,\r\n",
-        "    DL.RegiaoSigla,\r\n",
-        "    DL.EstadoSigla,\r\n",
-        "    DL.Municipio\r\n",
-        "\r\n",
-        "FROM gov_br_combustivel.silver_layer.dim_localidade AS DL;"
+        "SELECT * FROM gov_br_combustivel.gold_layer.wide_table"
       ]
     }
   ],
   "pages": [
     {
-      "name": "abe6670e",
+      "name": "c5867943",
       "displayName": "Visão Geral",
       "layout": [
         {
           "widget": {
-            "name": "48c16ac3",
+            "name": "bf8912b2",
             "multilineTextboxSpec": {
               "lines": [
                 "![Image](https://sindipetro-ro.org.br/wp-content/uploads/2025/03/Moldura-news-225_anp.png)"
@@ -221,425 +116,12 @@
         },
         {
           "widget": {
-            "name": "a30ade13",
+            "name": "5d2771e3",
             "queries": [
               {
-                "name": "main_query",
+                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_Bandeira",
                 "query": {
-                  "datasetName": "efaafb9e",
-                  "fields": [
-                    {
-                      "name": "countdistinct(Municipio)",
-                      "expression": "COUNT(DISTINCT `Municipio`)"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "countdistinct(Municipio)",
-                  "displayName": "Count of Unique Municipio"
-                }
-              },
-              "frame": {
-                "title": "Municípios",
-                "showTitle": true,
-                "showDescription": false
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 13,
-            "width": 1,
-            "height": 2
-          }
-        },
-        {
-          "widget": {
-            "name": "3405b274",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "ffc887c2",
-                  "fields": [
-                    {
-                      "name": "count(EstadoSigla)",
-                      "expression": "COUNT(`EstadoSigla`)"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "count(EstadoSigla)",
-                  "displayName": "Count of EstadoSigla"
-                }
-              },
-              "frame": {
-                "title": "Estados",
-                "showTitle": true
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 15,
-            "width": 1,
-            "height": 3
-          }
-        },
-        {
-          "widget": {
-            "name": "28c713fc",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "e6059274",
-                  "fields": [
-                    {
-                      "name": "Bandeira",
-                      "expression": "`Bandeira`"
-                    },
-                    {
-                      "name": "sum(NumeroRevendas)",
-                      "expression": "SUM(`NumeroRevendas`)"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "bar",
-              "encodings": {
-                "x": {
-                  "fieldName": "Bandeira",
-                  "axis": {
-                    "labelAngle": 90,
-                    "hideLabels": true
-                  },
-                  "scale": {
-                    "type": "categorical",
-                    "sort": {
-                      "by": "y-reversed"
-                    }
-                  },
-                  "displayName": "Bandeira"
-                },
-                "y": {
-                  "fieldName": "sum(NumeroRevendas)",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Quantidade"
-                },
-                "label": {
-                  "show": true
-                }
-              },
-              "frame": {
-                "title": "Quantidade de postos / bandeira",
-                "showTitle": true
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 1,
-            "y": 0,
-            "width": 2,
-            "height": 6
-          }
-        },
-        {
-          "widget": {
-            "name": "ca5700b4",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "0583fd15",
-                  "fields": [
-                    {
-                      "name": "Produto",
-                      "expression": "`Produto`"
-                    },
-                    {
-                      "name": "ano",
-                      "expression": "`ano`"
-                    },
-                    {
-                      "name": "media_anual",
-                      "expression": "`media_anual`"
-                    },
-                    {
-                      "name": "media_ano_anterior",
-                      "expression": "`media_ano_anterior`"
-                    },
-                    {
-                      "name": "yearly_variation_pct",
-                      "expression": "`yearly_variation_pct`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 1,
-              "widgetType": "table",
-              "encodings": {
-                "columns": [
-                  {
-                    "fieldName": "Produto",
-                    "booleanValues": [
-                      "false",
-                      "true"
-                    ],
-                    "imageUrlTemplate": "{{ @ }}",
-                    "imageTitleTemplate": "{{ @ }}",
-                    "imageWidth": "",
-                    "imageHeight": "",
-                    "linkUrlTemplate": "{{ @ }}",
-                    "linkTextTemplate": "{{ @ }}",
-                    "linkTitleTemplate": "{{ @ }}",
-                    "linkOpenInNewTab": true,
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 100000,
-                    "title": "Produto",
-                    "allowSearch": false,
-                    "alignContent": "left",
-                    "allowHTML": false,
-                    "highlightLinks": false,
-                    "useMonospaceFont": false,
-                    "preserveWhitespace": false,
-                    "displayName": "Produto"
-                  },
-                  {
-                    "fieldName": "ano",
-                    "numberFormat": "0",
-                    "booleanValues": [
-                      "false",
-                      "true"
-                    ],
-                    "imageUrlTemplate": "{{ @ }}",
-                    "imageTitleTemplate": "{{ @ }}",
-                    "imageWidth": "",
-                    "imageHeight": "",
-                    "linkUrlTemplate": "{{ @ }}",
-                    "linkTextTemplate": "{{ @ }}",
-                    "linkTitleTemplate": "{{ @ }}",
-                    "linkOpenInNewTab": true,
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 100001,
-                    "title": "Ano",
-                    "allowSearch": false,
-                    "alignContent": "center",
-                    "allowHTML": false,
-                    "highlightLinks": false,
-                    "useMonospaceFont": false,
-                    "preserveWhitespace": false,
-                    "displayName": "ano"
-                  },
-                  {
-                    "fieldName": "media_anual",
-                    "numberFormat": "0.00",
-                    "booleanValues": [
-                      "false",
-                      "true"
-                    ],
-                    "imageUrlTemplate": "{{ @ }}",
-                    "imageTitleTemplate": "{{ @ }}",
-                    "imageWidth": "",
-                    "imageHeight": "",
-                    "linkUrlTemplate": "{{ @ }}",
-                    "linkTextTemplate": "{{ @ }}",
-                    "linkTitleTemplate": "{{ @ }}",
-                    "linkOpenInNewTab": true,
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 100002,
-                    "title": "Média anual",
-                    "allowSearch": false,
-                    "alignContent": "center",
-                    "allowHTML": false,
-                    "highlightLinks": false,
-                    "useMonospaceFont": false,
-                    "preserveWhitespace": false,
-                    "displayName": "media_anual"
-                  },
-                  {
-                    "fieldName": "media_ano_anterior",
-                    "numberFormat": "0.00",
-                    "booleanValues": [
-                      "false",
-                      "true"
-                    ],
-                    "imageUrlTemplate": "{{ @ }}",
-                    "imageTitleTemplate": "{{ @ }}",
-                    "imageWidth": "",
-                    "imageHeight": "",
-                    "linkUrlTemplate": "{{ @ }}",
-                    "linkTextTemplate": "{{ @ }}",
-                    "linkTitleTemplate": "{{ @ }}",
-                    "linkOpenInNewTab": true,
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 100003,
-                    "title": "Média ano anterior",
-                    "allowSearch": false,
-                    "alignContent": "center",
-                    "allowHTML": false,
-                    "highlightLinks": false,
-                    "useMonospaceFont": false,
-                    "preserveWhitespace": false,
-                    "displayName": "media_ano_anterior"
-                  },
-                  {
-                    "fieldName": "yearly_variation_pct",
-                    "numberFormat": "0.00%",
-                    "booleanValues": [
-                      "false",
-                      "true"
-                    ],
-                    "imageUrlTemplate": "{{ @ }}",
-                    "imageTitleTemplate": "{{ @ }}",
-                    "imageWidth": "",
-                    "imageHeight": "",
-                    "linkUrlTemplate": "{{ @ }}",
-                    "linkTextTemplate": "{{ @ }}",
-                    "linkTitleTemplate": "{{ @ }}",
-                    "linkOpenInNewTab": true,
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 100004,
-                    "title": "Variação anual",
-                    "allowSearch": false,
-                    "alignContent": "center",
-                    "allowHTML": false,
-                    "highlightLinks": false,
-                    "useMonospaceFont": false,
-                    "preserveWhitespace": false,
-                    "cellFormat": {
-                      "default": {
-                        "foregroundColor": {
-                          "themeColorType": "visualizationColors",
-                          "position": 4
-                        }
-                      },
-                      "rules": [
-                        {
-                          "if": {
-                            "column": "yearly_variation_pct",
-                            "fn": ">",
-                            "literal": "0"
-                          },
-                          "value": {
-                            "foregroundColor": {
-                              "themeColorType": "visualizationColors",
-                              "position": 3
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    "description": "",
-                    "scalePercentBy100": false,
-                    "displayName": "yearly_variation_pct"
-                  }
-                ]
-              },
-              "invisibleColumns": [],
-              "allowHTMLByDefault": false,
-              "itemsPerPage": 25,
-              "paginationSize": "default",
-              "condensed": true,
-              "withRowNumber": false,
-              "frame": {
-                "title": "Média anual vs Ano anterior",
-                "showTitle": true
-              }
-            }
-          },
-          "position": {
-            "x": 3,
-            "y": 0,
-            "width": 3,
-            "height": 6
-          }
-        },
-        {
-          "widget": {
-            "name": "3fdbe0d6",
-            "queries": [
-              {
-                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f0828817d010eba7aeb58e578bb599_Bandeira",
-                "query": {
-                  "datasetName": "e6059274",
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
                       "name": "Bandeira",
@@ -662,134 +144,173 @@
                   {
                     "fieldName": "Bandeira",
                     "displayName": "Bandeira",
-                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f0828817d010eba7aeb58e578bb599_Bandeira"
+                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_Bandeira"
                   }
                 ]
               },
               "frame": {
-                "showTitle": true
-              },
-              "selection": {
-                "defaultSelection": {
-                  "values": {
-                    "dataType": "STRING",
-                    "values": [
-                      {
-                        "value": "BRANCA"
-                      },
-                      {
-                        "value": "VIBRA"
-                      },
-                      {
-                        "value": "IPIRANGA"
-                      },
-                      {
-                        "value": "RAIZEN"
-                      },
-                      {
-                        "value": "ALE"
-                      }
-                    ]
-                  }
-                }
-              },
-              "scale": {
-                "type": "categorical",
-                "sort": {
-                  "by": "custom-order",
-                  "orderedValues": [
-                    "ACOL",
-                    "AIR BP",
-                    "ALE",
-                    "AMAZONGÁS",
-                    "AMERICANOIL",
-                    "ATEM' S",
-                    "ATLÂNTICA",
-                    "BAHIANA",
-                    "BRANCA",
-                    "CHARRUA",
-                    "CIAPETRO",
-                    "D`MAIS",
-                    "DIBRAPE",
-                    "DINAMO",
-                    "DISLUB",
-                    "EQUADOR",
-                    "ESTRADA",
-                    "FAN",
-                    "FEDERAL ENERGIA",
-                    "FOGAS",
-                    "GRAN PETRO",
-                    "HORA",
-                    "IDAZA",
-                    "IPIRANGA",
-                    "LARCO",
-                    "LIQUIGÁS",
-                    "MASUT DISTRIBUIDORA",
-                    "MAXSUL",
-                    "MONTEPETRO",
-                    "NACIONAL GÁS BUTANO",
-                    "ON PETRO",
-                    "PELIKANO",
-                    "PETROBAHIA",
-                    "PETROBRASIL",
-                    "PETROLUZ",
-                    "PETRONAC",
-                    "PETROSERRA",
-                    "PETROX DISTRIBUIDORA",
-                    "PODIUM",
-                    "POTENCIAL",
-                    "PR DISTRIBUIDORA",
-                    "RAIZEN",
-                    "RDP ENERGIA",
-                    "REJAILE",
-                    "RIO BRANCO",
-                    "RM PETROLEO",
-                    "RODOIL",
-                    "ROYAL FIC",
-                    "RUFF C.J.",
-                    "RZD DISTRIBUIDORA",
-                    "SAARA",
-                    "SABBÁ",
-                    "SANTA LUCIA",
-                    "SETTA DISTRIBUIDORA",
-                    "SIM DISTRIBUIDOR",
-                    "SIMARELLI",
-                    "SMALL",
-                    "STANG",
-                    "SUL COMBUSTÍVEIS",
-                    "SUPERGASBRAS ENERGIA",
-                    "TAG DISTRIBUIDORA",
-                    "TAURUS",
-                    "TDC DISTRIBUIDORA",
-                    "TEMAPE",
-                    "TOBRAS",
-                    "TORRAO",
-                    "TOTALENERGIES",
-                    "ULTRAGAZ",
-                    "UNI",
-                    "VIBRA",
-                    "WALENDOWSKY",
-                    "WATT"
-                  ]
-                }
+                "showTitle": true,
+                "title": "Bandeira"
               }
             }
           },
           "position": {
-            "x": 1,
+            "x": 0,
             "y": 6,
-            "width": 2,
+            "width": 1,
             "height": 1
           }
         },
         {
           "widget": {
-            "name": "39ecdbac",
+            "name": "28db31a5",
             "queries": [
               {
-                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f082881b1513c3bc9cd206a3fabe58_Produto",
+                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_EstadoSigla",
                 "query": {
-                  "datasetName": "0583fd15",
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "EstadoSigla",
+                      "expression": "`EstadoSigla`"
+                    },
+                    {
+                      "name": "EstadoSigla_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "EstadoSigla",
+                    "displayName": "EstadoSigla",
+                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_EstadoSigla"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Estado"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "80b76ee2",
+            "queries": [
+              {
+                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_Municipio",
+                "query": {
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "Municipio",
+                      "expression": "`Municipio`"
+                    },
+                    {
+                      "name": "Municipio_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "Municipio",
+                    "displayName": "Municipio",
+                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_Municipio"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Município"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "f1e56ba2",
+            "queries": [
+              {
+                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_DataColeta",
+                "query": {
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "DataColeta",
+                      "expression": "`DataColeta`"
+                    },
+                    {
+                      "name": "DataColeta_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "DataColeta",
+                    "displayName": "DataColeta",
+                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_DataColeta"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Data",
+                "showDescription": false
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "00b13a7f",
+            "queries": [
+              {
+                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_Produto",
+                "query": {
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
                       "name": "Produto",
@@ -806,722 +327,104 @@
             ],
             "spec": {
               "version": 2,
-              "widgetType": "filter-single-select",
+              "widgetType": "filter-multi-select",
               "encodings": {
                 "fields": [
                   {
                     "fieldName": "Produto",
                     "displayName": "Produto",
-                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f082881b1513c3bc9cd206a3fabe58_Produto"
+                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_Produto"
                   }
                 ]
               },
               "frame": {
-                "showTitle": true
+                "showTitle": true,
+                "title": "Produto"
               }
             }
           },
           "position": {
-            "x": 3,
-            "y": 6,
-            "width": 3,
+            "x": 0,
+            "y": 5,
+            "width": 1,
             "height": 1
           }
         },
         {
           "widget": {
-            "name": "2304da7a",
-            "multilineTextboxSpec": {
-              "lines": [
-                "# Escopo do projeto\n",
-                "\n",
-                "> Série Histórica de Preços de Combustíveis e de GLP\n",
-                "\n",
-                "- Link da base: [Portal de Dados Abertos](https://dados.gov.br/dados/conjuntos-dados/serie-historica-de-precos-de-combustiveis-e-de-glp)\n",
-                "\n",
-                "- Tratamento de dados e desenvolvimento do dashboard: [GitHub](https://github.com/HugoFrajacomo/Databricks_ETL_Combustivel)\n",
-                "\n",
-                "> Dados utilizados: Dados semestrais de combustível automotivo\n",
-                "\n"
-              ]
+            "name": "cd044ec9",
+            "queries": [
+              {
+                "name": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_RegiaoSigla",
+                "query": {
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "RegiaoSigla",
+                      "expression": "`RegiaoSigla`"
+                    },
+                    {
+                      "name": "RegiaoSigla_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "RegiaoSigla",
+                    "displayName": "RegiaoSigla",
+                    "queryName": "dashboards/01f08287f6b9154291d8152bc61d9d4e/datasets/01f089ed9ae61c9d8b4958d5ce38dd62_RegiaoSigla"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Região"
+              }
             }
           },
           "position": {
             "x": 0,
-            "y": 18,
+            "y": 7,
             "width": 1,
-            "height": 6
+            "height": 1
           }
         },
         {
           "widget": {
-            "name": "5f2bfa96",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "ffc887c2",
-                  "fields": [
-                    {
-                      "name": "EstadoSigla",
-                      "expression": "`EstadoSigla`"
-                    },
-                    {
-                      "name": "PrecoMedio",
-                      "expression": "`PrecoMedio`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "EstadoSigla",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Estado"
-                },
-                "y": {
-                  "fieldName": "PrecoMedio",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Preço Médio"
-                },
-                "label": {
-                  "show": false
-                }
-              },
-              "annotations": [
-                {
-                  "type": "horizontal-line",
-                  "encodings": {
-                    "y": {
-                      "dataValue": "5.7",
-                      "dataType": "DOUBLE"
-                    }
-                  }
-                }
-              ],
-              "frame": {
-                "title": "Preço Médio Nacional - Diesel",
-                "showTitle": true
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
+            "name": "76c91cab",
+            "multilineTextboxSpec": {
+              "lines": [
+                "---"
+              ]
             }
           },
           "position": {
-            "x": 2,
-            "y": 7,
-            "width": 2,
-            "height": 4
+            "x": 1,
+            "y": 0,
+            "width": 5,
+            "height": 1
           }
         },
         {
           "widget": {
-            "name": "cdf968b5",
+            "name": "3f1bcb5e",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "40b06662",
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
-                      "name": "EstadoSigla",
-                      "expression": "`EstadoSigla`"
-                    },
-                    {
-                      "name": "PrecoMedio",
-                      "expression": "`PrecoMedio`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "EstadoSigla",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Estado"
-                },
-                "y": {
-                  "fieldName": "PrecoMedio",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Preço médio"
-                }
-              },
-              "annotations": [
-                {
-                  "type": "horizontal-line",
-                  "encodings": {
-                    "y": {
-                      "dataValue": "5.8",
-                      "dataType": "DOUBLE"
-                    }
-                  }
-                }
-              ],
-              "frame": {
-                "showTitle": true,
-                "title": "Preço Médio Nacional - Diesel S10"
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 4,
-            "y": 7,
-            "width": 2,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "04298a6e",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "9993c299",
-                  "fields": [
-                    {
-                      "name": "EstadoSigla",
-                      "expression": "`EstadoSigla`"
-                    },
-                    {
-                      "name": "PrecoMedio",
-                      "expression": "`PrecoMedio`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "EstadoSigla",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Estado"
-                },
-                "y": {
-                  "fieldName": "PrecoMedio",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Preço Médio"
-                }
-              },
-              "annotations": [
-                {
-                  "type": "horizontal-line",
-                  "encodings": {
-                    "y": {
-                      "dataValue": "4.4",
-                      "dataType": "DOUBLE"
-                    }
-                  }
-                }
-              ],
-              "frame": {
-                "showTitle": true,
-                "title": "Preço Médio Nacional - Etanol"
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 2,
-            "y": 11,
-            "width": 2,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "a9ef8c85",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "62902a72",
-                  "fields": [
-                    {
-                      "name": "EstadoSigla",
-                      "expression": "`EstadoSigla`"
-                    },
-                    {
-                      "name": "PrecoMedio",
-                      "expression": "`PrecoMedio`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "EstadoSigla",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Estados"
-                },
-                "y": {
-                  "fieldName": "PrecoMedio",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Preço médio"
-                }
-              },
-              "annotations": [
-                {
-                  "type": "horizontal-line",
-                  "encodings": {
-                    "y": {
-                      "dataValue": "6.3",
-                      "dataType": "DOUBLE"
-                    }
-                  }
-                }
-              ],
-              "frame": {
-                "showTitle": true,
-                "title": "Preço Médio Nacional - Gasolina Aditivada"
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 4,
-            "y": 15,
-            "width": 2,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "a18b8654",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "ffd7f8bb",
-                  "fields": [
-                    {
-                      "name": "EstadoSigla",
-                      "expression": "`EstadoSigla`"
-                    },
-                    {
-                      "name": "PrecoMedio",
-                      "expression": "`PrecoMedio`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "EstadoSigla",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Estado"
-                },
-                "y": {
-                  "fieldName": "PrecoMedio",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Preço Médio"
-                }
-              },
-              "annotations": [
-                {
-                  "type": "horizontal-line",
-                  "encodings": {
-                    "y": {
-                      "dataValue": "5.7",
-                      "dataType": "DOUBLE"
-                    }
-                  }
-                }
-              ],
-              "frame": {
-                "showTitle": true,
-                "title": "Preço Médio Nacional - Gasolina"
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 2,
-            "y": 15,
-            "width": 2,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "2d85f1a5",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "baaa04d4",
-                  "fields": [
-                    {
-                      "name": "EstadoSigla",
-                      "expression": "`EstadoSigla`"
-                    },
-                    {
-                      "name": "PrecoMedio",
-                      "expression": "`PrecoMedio`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "EstadoSigla",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Estado"
-                },
-                "y": {
-                  "fieldName": "PrecoMedio",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Preço Médio"
-                }
-              },
-              "annotations": [
-                {
-                  "type": "horizontal-line",
-                  "encodings": {
-                    "y": {
-                      "dataValue": "4.8",
-                      "dataType": "DOUBLE"
-                    }
-                  }
-                }
-              ],
-              "frame": {
-                "showTitle": true,
-                "title": "Preço Médio Nacional - GNV"
-              },
-              "mark": {
-                "colors": [
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 2
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 3
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 4
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 5
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 6
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 7
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 8
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 9
-                  },
-                  {
-                    "themeColorType": "visualizationColors",
-                    "position": 10
-                  }
-                ]
-              }
-            }
-          },
-          "position": {
-            "x": 4,
-            "y": 11,
-            "width": 2,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "e4412b70",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "d131cd92",
-                  "fields": [
-                    {
-                      "name": "count(DataColeta)",
-                      "expression": "COUNT(`DataColeta`)"
+                      "name": "count(CNPJRevenda)",
+                      "expression": "COUNT(`CNPJRevenda`)"
                     }
                   ],
                   "disaggregated": false
@@ -1533,31 +436,31 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "count(DataColeta)",
-                  "displayName": "Count of DataColeta"
+                  "fieldName": "count(CNPJRevenda)",
+                  "displayName": "Count of CNPJRevenda"
                 }
               },
               "frame": {
-                "title": "Coletas de dados",
+                "title": "Dados Coletados",
                 "showTitle": true
               }
             }
           },
           "position": {
-            "x": 0,
-            "y": 7,
+            "x": 1,
+            "y": 2,
             "width": 1,
             "height": 2
           }
         },
         {
           "widget": {
-            "name": "29ee5f6c",
+            "name": "6c77476a",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "d131cd92",
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
                       "name": "countdistinct(DataColeta)",
@@ -1578,26 +481,51 @@
                 }
               },
               "frame": {
-                "title": "Nº Dias",
+                "title": "Dias de coleta",
                 "showTitle": true
               }
             }
           },
           "position": {
-            "x": 0,
-            "y": 9,
+            "x": 2,
+            "y": 2,
             "width": 1,
             "height": 2
           }
         },
         {
           "widget": {
-            "name": "75b2aad6",
+            "name": "8d55462b",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Escopo do projeto\n",
+                "\n",
+                "> Série Histórica de Preços de Combustíveis e de GLP\n",
+                "\n",
+                "- Link da base: [Portal de Dados Abertos](https://dados.gov.br/dados/conjuntos-dados/serie-historica-de-precos-de-combustiveis-e-de-glp)\n",
+                "\n",
+                "- Tratamento de dados e desenvolvimento do dashboard: [GitHub](https://github.com/HugoFrajacomo/Databricks_ETL_Combustivel)\n",
+                "\n",
+                "> Dados utilizados: Dados semestrais de combustível automotivo\n",
+                "\n"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 1,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "3725bf54",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "d131cd92",
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
                       "name": "countdistinct(CNPJRevenda)",
@@ -1618,42 +546,118 @@
                 }
               },
               "frame": {
-                "title": "Postos",
+                "title": "Nº de Postos",
                 "showTitle": true
               }
             }
           },
           "position": {
-            "x": 0,
-            "y": 11,
+            "x": 3,
+            "y": 2,
             "width": 1,
             "height": 2
           }
         },
         {
           "widget": {
-            "name": "5ad42cd4",
+            "name": "872a1be1",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "d131cd92",
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "countdistinct(EstadoSigla)",
+                      "expression": "COUNT(DISTINCT `EstadoSigla`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(EstadoSigla)",
+                  "displayName": "Count of Unique EstadoSigla"
+                }
+              },
+              "frame": {
+                "title": "Estados",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "7f19ff52",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "countdistinct(EstadoSigla)",
+                      "expression": "COUNT(DISTINCT `EstadoSigla`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(EstadoSigla)",
+                  "displayName": "Count of Unique EstadoSigla"
+                }
+              },
+              "frame": {
+                "title": "Municípios",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "082d3609",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
                       "name": "Produto",
                       "expression": "`Produto`"
                     },
                     {
-                      "name": "median(ValorCompra)",
-                      "expression": "MEDIAN(`ValorCompra`)"
-                    },
-                    {
-                      "name": "median(ValorVenda)",
-                      "expression": "MEDIAN(`ValorVenda`)"
-                    },
-                    {
                       "name": "monthly(DataColeta)",
                       "expression": "DATE_TRUNC(\"MONTH\", `DataColeta`)"
+                    },
+                    {
+                      "name": "avg(ValorVenda)",
+                      "expression": "AVG(`ValorVenda`)"
                     }
                   ],
                   "disaggregated": false
@@ -1662,26 +666,21 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "heatmap",
+              "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "Produto",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "axis": {
-                    "hideLabels": true,
-                    "hideTitle": false,
-                    "title": "Produtos"
-                  },
-                  "displayName": "Produtos"
-                },
-                "y": {
                   "fieldName": "monthly(DataColeta)",
                   "scale": {
-                    "type": "categorical"
+                    "type": "temporal"
                   },
                   "displayName": "DataColeta"
+                },
+                "y": {
+                  "fieldName": "avg(ValorVenda)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Valor Médio"
                 },
                 "color": {
                   "fieldName": "Produto",
@@ -1689,33 +688,186 @@
                     "type": "categorical"
                   },
                   "displayName": "Produto"
-                },
-                "label": {
-                  "show": false
-                },
-                "extra": [
-                  {
-                    "fieldName": "median(ValorCompra)",
-                    "displayName": "Median of ValorCompra"
-                  },
-                  {
-                    "fieldName": "median(ValorVenda)",
-                    "displayName": "Median of ValorVenda"
-                  }
-                ]
+                }
+              },
+              "frame": {
+                "title": "Valor de Venda Médio / Porduto",
+                "showTitle": true
               }
             }
           },
           "position": {
             "x": 1,
-            "y": 7,
-            "width": 1,
-            "height": 12
+            "y": 5,
+            "width": 3,
+            "height": 6
           }
         },
         {
           "widget": {
-            "name": "fb2ccd1a",
+            "name": "941c8c90",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "RegiaoSigla",
+                      "expression": "`RegiaoSigla`"
+                    },
+                    {
+                      "name": "avg(ValorVenda)",
+                      "expression": "AVG(`ValorVenda`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "RegiaoSigla",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "displayName": "Região"
+                },
+                "y": {
+                  "fieldName": "avg(ValorVenda)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Valor Médio"
+                },
+                "color": {
+                  "fieldName": "RegiaoSigla",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "legend": {
+                    "hide": true
+                  },
+                  "displayName": "Região"
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "title": "Média Geral de Preço de Venda pro Região",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 5,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "cefc27c3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "de6710c7",
+                  "fields": [
+                    {
+                      "name": "RegiaoSigla",
+                      "expression": "`RegiaoSigla`"
+                    },
+                    {
+                      "name": "EstadoSigla",
+                      "expression": "`EstadoSigla`"
+                    },
+                    {
+                      "name": "countdistinct(CNPJRevenda)",
+                      "expression": "COUNT(DISTINCT `CNPJRevenda`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "EstadoSigla",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "displayName": "EstadoSigla"
+                },
+                "y": {
+                  "fieldName": "countdistinct(CNPJRevenda)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideLabels": false,
+                    "hideTitle": true
+                  },
+                  "displayName": "Contagem"
+                },
+                "color": {
+                  "fieldName": "RegiaoSigla",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "legend": {
+                    "hideTitle": true,
+                    "hide": false
+                  },
+                  "displayName": "RegiaoSigla"
+                }
+              },
+              "frame": {
+                "title": "Distribuição das Revendas por Estado",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 11,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "4c13f4fe",
+            "multilineTextboxSpec": {
+              "lines": [
+                "---"
+              ]
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 4,
+            "width": 5,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "03c5f00b",
             "multilineTextboxSpec": {
               "lines": [
                 "# Dados Gerais"
@@ -1723,32 +875,32 @@
             }
           },
           "position": {
-            "x": 0,
-            "y": 5,
-            "width": 1,
-            "height": 2
+            "x": 1,
+            "y": 1,
+            "width": 5,
+            "height": 1
           }
         },
         {
           "widget": {
-            "name": "e1896c50",
+            "name": "cd865ddd",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "b6790011",
+                  "datasetName": "de6710c7",
                   "fields": [
                     {
                       "name": "Produto",
                       "expression": "`Produto`"
                     },
                     {
-                      "name": "monthly(DataColeta)",
-                      "expression": "DATE_TRUNC(\"MONTH\", `DataColeta`)"
+                      "name": "max(ValorVenda)",
+                      "expression": "MAX(`ValorVenda`)"
                     },
                     {
-                      "name": "avg(ValorVenda)",
-                      "expression": "AVG(`ValorVenda`)"
+                      "name": "min(ValorVenda)",
+                      "expression": "MIN(`ValorVenda`)"
                     }
                   ],
                   "disaggregated": false
@@ -1757,115 +909,55 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "line",
+              "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "monthly(DataColeta)",
-                  "scale": {
-                    "type": "temporal"
-                  },
-                  "displayName": "DataColeta"
-                },
-                "y": {
-                  "fieldName": "avg(ValorVenda)",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Average ValorVenda"
-                },
-                "color": {
-                  "fieldName": "Produto",
-                  "scale": {
-                    "type": "categorical"
-                  },
-                  "displayName": "Produto"
-                }
-              },
-              "frame": {
-                "title": "Valor de Venda Médio - Ultimo ano",
-                "showTitle": true
-              }
-            }
-          },
-          "position": {
-            "x": 4,
-            "y": 19,
-            "width": 2,
-            "height": 5
-          }
-        },
-        {
-          "widget": {
-            "name": "3554cb9d",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "d131cd92",
-                  "fields": [
-                    {
-                      "name": "Produto",
-                      "expression": "`Produto`"
-                    },
-                    {
-                      "name": "yearly(DataColeta)",
-                      "expression": "DATE_TRUNC(\"YEAR\", `DataColeta`)"
-                    },
-                    {
-                      "name": "avg(ValorVenda)",
-                      "expression": "AVG(`ValorVenda`)"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "yearly(DataColeta)",
-                  "scale": {
-                    "type": "temporal"
-                  },
-                  "displayName": "DataColeta"
-                },
-                "y": {
-                  "fieldName": "avg(ValorVenda)",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Average ValorVenda"
-                },
-                "color": {
                   "fieldName": "Produto",
                   "scale": {
                     "type": "categorical",
                     "sort": {
-                      "by": "natural-order"
+                      "by": "y-reversed"
                     }
                   },
-                  "legend": {
-                    "position": "right"
+                  "axis": {
+                    "labelAngle": 0
                   },
                   "displayName": "Produto"
                 },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "max(ValorVenda)",
+                      "displayName": "Maximum ValorVenda"
+                    },
+                    {
+                      "fieldName": "min(ValorVenda)",
+                      "displayName": "Minimum ValorVenda"
+                    }
+                  ],
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": true
+                  }
+                },
                 "label": {
-                  "show": false
+                  "show": true
                 }
               },
               "frame": {
-                "title": "Valor de Venda Médio - Histórico",
+                "title": "Preço máximo / minimo por Produto",
                 "showTitle": true
               }
             }
           },
           "position": {
             "x": 1,
-            "y": 19,
+            "y": 11,
             "width": 3,
-            "height": 5
+            "height": 6
           }
         }
       ],
