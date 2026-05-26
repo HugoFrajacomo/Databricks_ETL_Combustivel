@@ -1,0 +1,292 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19"/>
+      <stop offset="100%" stop-color="#1E2640"/>
+    </linearGradient>
+
+    <!-- Node Color Gradients -->
+    <linearGradient id="seqGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+
+    <linearGradient id="branch1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+
+    <linearGradient id="branch2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#DB2777"/>
+    </linearGradient>
+
+    <linearGradient id="goldNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Line Gradients -->
+    <linearGradient id="flowLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+
+    <!-- Glow Effect -->
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="640" rx="16" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Grid Pattern in background -->
+  <g opacity="0.04">
+    <path d="M 0,50 L 1200,50 M 0,100 L 1200,100 M 0,150 L 1200,150 M 0,200 L 1200,200 M 0,250 L 1200,250 M 0,300 L 1200,300 M 0,350 L 1200,350 M 0,400 L 1200,400 M 0,450 L 1200,450 M 0,500 L 1200,500 M 0,550 L 1200,550 M 0,600 L 1200,600" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M 100,0 L 100,640 M 200,0 L 200,640 M 300,0 L 300,640 M 400,0 L 400,640 M 500,0 L 500,640 M 600,0 L 600,640 M 700,0 L 700,640 M 800,0 L 800,640 M 900,0 L 900,640 M 1000,0 L 1000,640 M 1100,0 L 1100,640" stroke="#38BDF8" stroke-width="1"/>
+  </g>
+
+  <!-- Title & Description -->
+  <text x="50" y="45" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" letter-spacing="0.5">ORQUESTRAÇÃO DO PIPELINE - DAG DE TAREFAS (DATABRICKS JOBS)</text>
+  <text x="50" y="68" fill="#94A3B8" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500">Fluxo direcionado acíclico (DAG) que garante dependência lógica e paralelismo na execução das etapas</text>
+
+  <!-- Legend and Metadata -->
+  <g transform="translate(820, 30)">
+    <rect width="330" height="40" rx="6" fill="#1E293B" fill-opacity="0.6" stroke="#334155" stroke-width="1"/>
+    
+    <circle cx="20" cy="20" r="5" fill="#38BDF8"/>
+    <text x="30" y="23" fill="#94A3B8" font-family="'Inter', system-ui, sans-serif" font-size="10.5" font-weight="600">Seqüencial</text>
+
+    <circle cx="105" cy="20" r="5" fill="#2DD4BF"/>
+    <text x="115" y="23" fill="#94A3B8" font-family="'Inter', system-ui, sans-serif" font-size="10.5" font-weight="600">Dimensões (Paralelo)</text>
+
+    <circle cx="240" cy="20" r="5" fill="#FBBF24"/>
+    <text x="250" y="23" fill="#94A3B8" font-family="'Inter', system-ui, sans-serif" font-size="10.5" font-weight="600">Gold (Analíticos)</text>
+  </g>
+
+  <!-- ==================== DATABRICKS DAG CONNECTOR LINES ==================== -->
+  <g stroke="#38BDF8" stroke-opacity="0.3" stroke-width="2.5" fill="none">
+    <!-- Sequential Flow Line (Col 1 to 4) -->
+    <path d="M 125,325 L 175,325"/>
+    <path d="M 285,325 L 335,325"/>
+    <path d="M 445,325 L 495,325"/>
+    
+    <!-- Col 4 to Col 5 (Branching 1: sequential to 4 parallel dimensions) -->
+    <path d="M 605,325 L 635,325 L 635,130 L 665,130"/>
+    <path d="M 605,325 L 635,325 L 635,260 L 665,260"/>
+    <path d="M 605,325 L 635,325 L 635,390 L 665,390"/>
+    <path d="M 605,325 L 635,325 L 635,520 L 665,520"/>
+
+    <!-- Col 5 to Col 6 (Merging 1: 4 parallel dimensions to Set_PKs) -->
+    <path d="M 775,130 L 805,130 L 805,325 L 835,325"/>
+    <path d="M 775,260 L 805,260 L 805,325 L 835,325"/>
+    <path d="M 775,390 L 805,390 L 805,325 L 835,325"/>
+    <path d="M 775,520 L 805,520 L 805,325 L 835,325"/>
+
+    <!-- Col 6 to Col 7 (Set_PKs to Fact Table) -->
+    <path d="M 945,325 L 980,325"/>
+
+    <!-- Col 7 to Col 8 (Branching 2: Fact table to Gold analytical jobs) -->
+    <path d="M 1090,325 L 1110,325 L 1110,130 L 1125,130"/>
+    <path d="M 1090,325 L 1110,325 L 1110,260 L 1125,260"/>
+    <path d="M 1090,325 L 1110,325 L 1110,390 L 1125,390"/>
+    <path d="M 1090,325 L 1110,325 L 1110,520 L 1125,520"/>
+  </g>
+
+  <!-- Arrowheads on curves -->
+  <g fill="#38BDF8" opacity="0.8">
+    <!-- Col 1 to 4 sequential arrows -->
+    <polygon points="175,321 183,325 175,329"/>
+    <polygon points="335,321 343,325 335,329"/>
+    <polygon points="495,321 503,325 495,329"/>
+
+    <!-- Col 4 to 5 dimension arrows -->
+    <polygon points="657,126 665,130 657,134" fill="#2DD4BF"/>
+    <polygon points="657,256 665,260 657,264" fill="#2DD4BF"/>
+    <polygon points="657,386 665,390 657,394" fill="#2DD4BF"/>
+    <polygon points="657,516 665,520 657,524" fill="#2DD4BF"/>
+
+    <!-- Col 5 to 6 merging arrow -->
+    <polygon points="827,321 835,325 827,329"/>
+
+    <!-- Col 6 to 7 fact arrow -->
+    <polygon points="972,321 980,325 972,329"/>
+
+    <!-- Col 7 to 8 gold arrows -->
+    <polygon points="1117,126 1125,130 1117,134" fill="#FBBF24"/>
+    <polygon points="1117,256 1125,260 1117,264" fill="#FBBF24"/>
+    <polygon points="1117,386 1125,390 1117,394" fill="#FBBF24"/>
+    <polygon points="1117,516 1125,520 1117,524" fill="#FBBF24"/>
+  </g>
+
+  <!-- ==================== COL 1: ENTRY POINT (SCHEMA) ==================== -->
+  <g transform="translate(15, 290)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#seqGrad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#seqGrad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">TAREFA 1</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Arch_build</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">catalog_build</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6.5" text-anchor="middle">Cria Catálogo/Schemas</text>
+  </g>
+
+  <!-- ==================== COL 2: BRONZE INGESTION ==================== -->
+  <g transform="translate(175, 290)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#seqGrad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#seqGrad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">TAREFA 2</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Bronze_Ingestion</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">gov_br_data</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6.5" text-anchor="middle">Download &amp; Salva Delta</text>
+  </g>
+
+  <!-- ==================== COL 3: BEFORE 2020 DATA ==================== -->
+  <g transform="translate(335, 290)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#seqGrad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#seqGrad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">TAREFA 3</text>
+    <text x="55" y="36" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Silver_data_bef...</text>
+    <text x="55" y="48" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">tables_before_2020</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6.5" text-anchor="middle">Tratamento Históricos</text>
+  </g>
+
+  <!-- ==================== COL 4: ENRICH & JOIN ALL ==================== -->
+  <g transform="translate(495, 290)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#seqGrad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#seqGrad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">TAREFA 4</text>
+    <text x="55" y="36" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Join_full_Bronze</text>
+    <text x="55" y="48" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">enrichment_fuel</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6.5" text-anchor="middle">Unifica &amp; Limpa Dados</text>
+  </g>
+
+  <!-- ==================== COL 5: PARALLEL DIMENSION BUILDERS ==================== -->
+  <!-- Dim Localidade -->
+  <g transform="translate(665, 95)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#2DD4BF" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#branch1Grad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#branch1Grad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">DIMENSÃO</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Build_Dim_Loc</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">dim_localidade</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6" text-anchor="middle">Municípios &amp; Regiões</text>
+  </g>
+
+  <!-- Dim Product -->
+  <g transform="translate(665, 225)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#2DD4BF" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#branch1Grad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#branch1Grad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">DIMENSÃO</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Build_Dim_Prod</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">dim_produtos</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6" text-anchor="middle">Combustíveis &amp; Unid</text>
+  </g>
+
+  <!-- Dim Revenda -->
+  <g transform="translate(665, 355)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#2DD4BF" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#branch1Grad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#branch1Grad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">DIMENSÃO</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Build_Dim_Rev</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">dim_revenda</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6" text-anchor="middle">Cadastro de Postos</text>
+  </g>
+
+  <!-- Dim Tempo -->
+  <g transform="translate(665, 485)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#2DD4BF" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#branch1Grad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#branch1Grad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">DIMENSÃO</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Build_Dim_tempo</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">dim_tempo</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6" text-anchor="middle">Estrutura de Períodos</text>
+  </g>
+
+  <!-- ==================== COL 6: ADJUST PKS ==================== -->
+  <g transform="translate(835, 290)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#seqGrad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#seqGrad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">CONVERGÊNCIA</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Set_Pk_Dim_Tab</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">ajuste_pks</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6.5" text-anchor="middle">Aplica Constraints PK</text>
+  </g>
+
+  <!-- ==================== COL 7: FACT TABLE BUILD ==================== -->
+  <g transform="translate(980, 290)" filter="url(#shadow)">
+    <rect width="110" height="70" rx="8" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="110" height="22" rx="8" fill="url(#seqGrad)"/>
+    <rect x="0" y="16" width="110" height="6" fill="url(#seqGrad)"/>
+    <text x="55" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">TABELA FATO</text>
+    <text x="55" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Build_Fact_Table</text>
+    <text x="55" y="52" fill="#94A3B8" font-family="monospace" font-size="7" text-anchor="middle">fact_fuel</text>
+    <text x="55" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="6.5" text-anchor="middle">Gera Fato + FK Links</text>
+  </g>
+
+  <!-- ==================== COL 8: GOLD ENRICHMENT PARALLEL ==================== -->
+  <!-- Comparacoes Geograficas -->
+  <g transform="translate(1125, 95)" filter="url(#shadow)">
+    <rect width="60" height="70" rx="8" fill="url(#cardGrad)" stroke="#FBBF24" stroke-width="1.5"/>
+    <rect width="60" height="22" rx="8" fill="url(#goldNodeGrad)"/>
+    <rect x="0" y="16" width="60" height="6" fill="url(#goldNodeGrad)"/>
+    <text x="30" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="7" font-weight="900" text-anchor="middle">GOLD</text>
+    <text x="30" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">GeoRank</text>
+    <text x="30" y="52" fill="#94A3B8" font-family="monospace" font-size="6.5" text-anchor="middle">03_compar...</text>
+    <text x="30" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="5.5" text-anchor="middle">Rank UF/Cidade</text>
+  </g>
+
+  <!-- Indicadores Temporais -->
+  <g transform="translate(1125, 225)" filter="url(#shadow)">
+    <rect width="60" height="70" rx="8" fill="url(#cardGrad)" stroke="#FBBF24" stroke-width="1.5"/>
+    <rect width="60" height="22" rx="8" fill="url(#goldNodeGrad)"/>
+    <rect x="0" y="16" width="60" height="6" fill="url(#goldNodeGrad)"/>
+    <text x="30" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="7" font-weight="900" text-anchor="middle">GOLD</text>
+    <text x="30" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">TimeVar</text>
+    <text x="30" y="52" fill="#94A3B8" font-family="monospace" font-size="6.5" text-anchor="middle">02_indicad...</text>
+    <text x="30" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="5.5" text-anchor="middle">MoM / YoY Pct</text>
+  </g>
+
+  <!-- infoProdutos -->
+  <g transform="translate(1125, 355)" filter="url(#shadow)">
+    <rect width="60" height="70" rx="8" fill="url(#cardGrad)" stroke="#FBBF24" stroke-width="1.5"/>
+    <rect width="60" height="22" rx="8" fill="url(#goldNodeGrad)"/>
+    <rect x="0" y="16" width="60" height="6" fill="url(#goldNodeGrad)"/>
+    <text x="30" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="7" font-weight="900" text-anchor="middle">GOLD</text>
+    <text x="30" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">FuelInfo</text>
+    <text x="30" y="52" fill="#94A3B8" font-family="monospace" font-size="6.5" text-anchor="middle">01_info_pre...</text>
+    <text x="30" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="5.5" text-anchor="middle">Preço Médio Prod</text>
+  </g>
+
+  <!-- InfoBandeira -->
+  <g transform="translate(1125, 485)" filter="url(#shadow)">
+    <rect width="60" height="70" rx="8" fill="url(#cardGrad)" stroke="#FBBF24" stroke-width="1.5"/>
+    <rect width="60" height="22" rx="8" fill="url(#goldNodeGrad)"/>
+    <rect x="0" y="16" width="60" height="6" fill="url(#goldNodeGrad)"/>
+    <text x="30" y="14" fill="#FFFFFF" font-family="'Inter', system-ui, sans-serif" font-size="7" font-weight="900" text-anchor="middle">GOLD</text>
+    <text x="30" y="38" fill="#F8FAFC" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">BrandInfo</text>
+    <text x="30" y="52" fill="#94A3B8" font-family="monospace" font-size="6.5" text-anchor="middle">04_Bandeira</text>
+    <text x="30" y="60" fill="#64748B" font-family="'Inter', system-ui, sans-serif" font-size="5.5" text-anchor="middle">Média por Bandeira</text>
+  </g>
+
+  <!-- ==================== BOTTOM FOOTER ==================== -->
+  <g transform="translate(15, 580)">
+    <rect width="1170" height="45" rx="8" fill="#1E293B" fill-opacity="0.5" stroke="#334155" stroke-width="1"/>
+    <text x="25" y="26" fill="#FBBF24" font-family="'Inter', system-ui, sans-serif" font-size="11.5" font-weight="700">EFICIÊNCIA &amp; CONCORRÊNCIA</text>
+    <text x="195" y="26" fill="#E2E8F0" font-family="'Inter', system-ui, sans-serif" font-size="10.5">As tarefas paralelas de Dimensões e Tabelas Gold rodam concorrentemente no Databricks Jobs, minimizando o tempo total de execução e uso do cluster Spark.</text>
+  </g>
+</svg>

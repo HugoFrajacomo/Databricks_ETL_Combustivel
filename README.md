@@ -1,349 +1,321 @@
-# ETL Pipeline - Séries Históricas de Preços de Combustíveis (GOV.BR)
-
-## Base de dados
-
-### **Metadados da Série Histórica de Preços de Combustíveis**
-
-**Descrição**
-Série Histórica de Preços de Combustíveis, com dados da pesquisa de preços da Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP), em formato de dados abertos. A ANP, no desempenho de suas atribuições legais, acompanha o comportamento de preços praticados pelas distribuidoras e postos revendedores de combustíveis por meio do Levantamento de Preços de Combustíveis (LPC).
-
-**Fonte de Dados**
-
-- **Órgão**: Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)
-- **Formato**: CSVs semestrais (Histórico de preços)
-- **Disponibilidade**: [Portal de Dados Abertos do Governo Federal](https://dados.gov.br/dados/conjuntos-dados/serie-historica-de-precos-de-combustiveis-e-de-glp)
-- **Documentação**: [Informações sobre Levantamento de Preços de Combustíveis](https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/informacoes-levantamento-de-precos-de-combustiveis)
-
-- **Dados utilizados**
-Entre os dados disponíveis na base da ANP, este projeto utilizou as séries dos últimos 5 anos, com possibilidade de atualização anual automatizada. Os dados foram restritos aos relatórios semestrais de Combustíveis Automotivos.
+# ⛽ Pipeline ETL de Preços de Combustíveis no Brasil (ANP)
+### *Showcase de Engenharia de Dados de Alta Performance com Databricks, PySpark e Delta Lake*
 
 ---
 
-### **Campos da Tabela**
-
-| Campo | Descrição do Atributo | Tipo | Fonte dos Dados |
-|---|---|---|---|
-| **Região - Sigla** | Sigla da Região onde a revenda pesquisada se encontra | Alfanumérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Estado - Sigla** | Sigla da Unidade Federativa (UF) da revenda pesquisada | Alfanumérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Município** | Nome do município da revenda pesquisada | Alfanumérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Revenda** | Nome do Cadastro Nacional de Pessoa Jurídica da revenda | Alfanumérico | Sistema de Movimentação de Produtos (SIMP) |
-| **CNPJ da Revenda**| Nome do logradouro da revenda pesquisada | Alfanumérico | Sistema de Movimentação de Produtos (SIMP) |
-| **Nome da Rua** | Número do logradouro da revenda pesquisada | Alfanumérico | Sistema de Movimentação de Produtos (SIMP) |
-| **Numero Rua** | Complemento do logradouro da revenda | Alfanumérico | Sistema de Movimentação de Produtos (SIMP) |
-| **Complemento** | Nome do bairro da revenda pesquisada | Alfanumérico | Sistema de Movimentação de Produtos (SIMP) |
-| **Bairro** | Número do Código de Endereçamento Postal (CEP) do logradouro | Alfanumérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Cep** | Nome do combustível | Alfanumérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Produto** | Data da coleta do preço | Data | Levantamento de Preços de Combustíveis (LPC) |
-| **Valor de Venda**| Preço de venda ao consumidor final | Numérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Valor de Compra** | Preço de distribuição (preço de venda da distribuidora para o posto revendedor) | Numérico | Levantamento de Preços de Combustíveis (LPC) |
-| **Unidade de Medida** | Unidade de Medida | Alfanumérico | Levantamento de Preços de Combustíveis (LPC)  |
-| **Bandeira** | Nome da bandeira da revenda. Posto que opta por exibir a marca comercial de uma distribuidora, deverá vender somente combustíveis fornecidos pela distribuidora detentora da marca. Posto bandeira branca é aquele que opta por não exibir marca comercial. | Alfanumérico | Sistema de Movimentação de Produtos (SIMP) |
+<p align="center">
+  <img src="https://img.shields.io/badge/Databricks-FF5A1F?style=for-the-badge&logo=Databricks&logoColor=white" alt="Databricks" />
+  <img src="https://img.shields.io/badge/Apache_Spark-E25A28?style=for-the-badge&logo=apachespark&logoColor=white" alt="Apache Spark" />
+  <img src="https://img.shields.io/badge/Delta_Lake-00A4E4?style=for-the-badge&logo=deltalake&logoColor=white" alt="Delta Lake" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Unity_Catalog-10B981?style=for-the-badge&logo=databricks&logoColor=white" alt="Unity Catalog" />
+  <img src="https://img.shields.io/badge/Star_Schema-0D9488?style=for-the-badge&logo=database&logoColor=white" alt="Star Schema" />
+  <img src="https://img.shields.io/badge/Business_Intelligence-EC4899?style=for-the-badge&logo=databricks&logoColor=white" alt="BI" />
+</p>
 
 ---
 
-## Arquitetura do Projeto
+## 📌 Sumário Executivo
+- [🚀 Apresentação & Objetivo do Portfólio](#-apresentação--objetivo-do-portfólio)
+- [🏛️ Arquitetura do Projeto (Medallion)](#️-arquitetura-do-projeto-medallion)
+- [💎 Destaques Técnicos & Engenharia de Dados](#-destaques-técnicos--engenharia-de-dados)
+  - [⚡ Ingestão Paralela com ThreadPoolExecutor](#-ingestão-paralela-com-threadpoolexecutor)
+  - [🔄 Resiliência & Evolução Dinâmica de Schemas](#-resiliência--evolução-dinâmica-de-schemas)
+  - [🛠️ Modelagem Dimensional (Star Schema)](#️-modelagem-dimensional-star-schema)
+  - [🏎️ Otimização Delta: Z-Ordering & Compacção de Arquivos](#️-otimização-delta-z-ordering--compacção-de-arquivos)
+  - [📈 Cálculos Avançados (Window Functions)](#-cálculos-avançados-window-functions)
+- [⚙️ Orquestração de Jobs (DAG)](#️-orquestração-de-jobs-dag)
+- [📂 Estrutura do Repositório](#-estrutura-do-repositório)
+- [☁️ Como Executar no Databricks](#️-como-executar-no-databricks)
+  - [Opção A: Databricks Community (Free)](#opção-a-databricks-community-free-edition)
+  - [Opção B: Azure Databricks (Enterprise)](#opção-b-azure-databricks-corporativo)
+- [📊 Consumo, Dashboards e IA (Genie)](#-consumo-dashboards-e-ia-genie)
+- [📝 Licença](#-licença)
 
-### **Visão Geral**
+---
 
-Este projeto implementa um pipeline ETL seguindo a **Medallion Architecture** para processamento e análise de dados históricos de preços de combustíveis. A arquitetura é composta por três camadas principais: Bronze (dados brutos), Silver (dados limpos e transformados) e Gold (dados agregados e enriquecidos).
+## 🚀 Apresentação & Objetivo do Portfólio
+Este projeto é um **Showcase de Engenharia de Dados de nível corporativo**, desenvolvido para demonstrar a aplicação prática de conceitos avançados de processamento de Big Data e modelagem dimensional em um Lakehouse moderno.
 
-### **Tecnologias Utilizadas**
+A base de dados utilizada provém das **Séries Históricas de Preços de Combustíveis do Levantamento de Preços de Combustíveis (LPC) da ANP (Agência Nacional do Petróleo, Gás Natural e Biocombustíveis)**, disponível no [Portal de Dados Abertos do Governo Federal](https://dados.gov.br/dados/conjuntos-dados/serie-historica-de-precos-de-combustiveis-e-de-glp).
 
-| Categoria | Tecnologia | Descrição |
-|---|---|---|
-| **Linguagem de Programação** | Python | Linguagem principal para desenvolvimento dos pipelines ETL |
-| **Framework de Processamento** | Apache Spark | Engine distribuída para processamento de big data em larga escala |
-| **Plataforma de Dados** | Databricks | Plataforma unificada de analytics baseada em Apache Spark |
-| **Formato de Dados** | Delta Lake | Formato de armazenamento para data lakes com versionamento e ACID |
-| **Controle de Versão** | Git | Sistema de controle de versão distribuído para código e notebooks |
-| **Repositório** | GitHub | Plataforma de hospedagem e colaboração de código |
-| **Notebooks** | Databricks Notebooks | Ambiente interativo para desenvolvimento e documentação |
-| **Visualização** | Databricks Dashboards | Dashboards nativos para visualização de dados |
-| **IA Conversacional** | Databricks Genie | Interface de consulta em linguagem natural |
+### O Desafio de Engenharia de Dados:
+1. **Volume de Dados Históricos**: Análise abrangendo os últimos 5 anos de coletas diárias em todo o território nacional.
+2. **Evolução de Schemas**: Dados distribuídos em formatos variados de CSVs e ZIPs semestrais, com nomes de colunas inconsistentes (erros de encoding como `ï»¿Regiao - Sigla`).
+3. **Performance Analítica**: Consultar bilhões de linhas cruzando postos de gasolina, marcas (bandeiras), localizações e variações temporais de preços de forma instantânea para ferramentas de BI.
 
-#### **Vantagens**
+---
 
-- **Python + Apache Spark**:
-Permite o desenvolvimento de pipelines ETL escaláveis e eficientes, aproveitando a simplicidade do Python e o poder de processamento distribuído do Spark. Ideal para manipulação de grandes volumes de dados, transformações complexas e integração com bibliotecas analíticas.
+## 🏛️ Arquitetura do Projeto (Medallion)
+O pipeline adota a **Arquitetura Medalhão (Medallion Architecture)**, que organiza o ciclo de vida dos dados em camadas de refinamento progressivo para garantir governança, qualidade e escalabilidade.
 
-- **Databricks**:
-Plataforma colaborativa que integra processamento distribuído, notebooks interativos e gerenciamento de clusters. Facilita o desenvolvimento, execução e monitoramento de fluxos de dados, além de oferecer integração nativa com Spark e Delta Lake.
+<p align="center">
+  <img src="assets/medallion_architecture.svg" alt="Arquitetura Medalhão do Projeto" width="100%" />
+</p>
 
-- **Delta Tables**:
-Formato otimizado para data lakes, com suporte a transações ACID, versionamento e auditoria de dados. Garante integridade, rastreabilidade e alta performance em operações de leitura e escrita, essenciais para o tratamento confiável de dados.
+### Camada 🥉 Bronze Layer (Ingestão Bruta)
+- **Propósito**: Preservar os dados exatamente no estado original de origem (Single Source of Truth).
+- **Implementação**: Download direto via requisições HTTP e salvamento automático em tabelas **Delta Lake** sem transformações estruturais. Garante auditoria total e capacidade de reprocessamento (time-travel).
 
-- **Databricks Dashboards**:
-Permite a criação rápida de visualizações interativas diretamente dos notebooks, facilitando o acompanhamento dos resultados do tratamento de dados e a comunicação com áreas de negócio.
-
-- **Databricks Genie**:
-Interface de consulta em linguagem natural que agiliza o acesso e análise dos dados tratados, tornando o processo de exploração e geração de insights mais intuitivo e acessível para usuários não técnicos.
-
-### **Camadas da Arquitetura**
-
-A **Medallion Architecture** é um padrão de design para data lakes que organiza os dados em três camadas progressivas de qualidade e refinamento, garantindo flexibilidade, escalabilidade e governança de dados.
-
-#### **🥉 Bronze Layer - Ingestão Bruta**
-**Conceito**: Camada de armazenamento de dados brutos, exatamente como recebidos da fonte, sem qualquer transformação. Atua como um "backup" dos dados originais, preservando a integridade e permitindo reprocessamento quando necessário.
-
-- **Objetivo**: Armazenamento de dados brutos sem transformações
+### Camada 🥈 Silver Layer (Tratamento, Limpeza & Modelagem)
+- **Propósito**: Higienizar, tipificar, enriquecer e estruturar os dados em um modelo de dados confiável.
 - **Implementação**: 
-  - Job Databricks para download automático de arquivos CSV
-  - Armazenamento no Databricks Catalog
-  - Formato: Delta Tables
-- **Características**:
-  - Preservação dos dados originais
-  - Versionamento de dados
-  - Auditoria completa
+  - Tratamento de nulos (`N/A`) e correções de tipo (ex: conversão de preços textuais `5,89` para float/double `5.89` e strings para formato de data nativo).
+  - Padronização de strings (trimming) e harmonização de bandeiras de postos (ex: unificação de `VIBRA ENERGIA` e `PETROBRAS DISTRIBUIDORA S.A.` sob a marca `VIBRA`).
+  - Modelagem dimensional (**Star Schema**), criando chaves primárias e estrangeiras explícitas no Unity Catalog.
 
-#### **🥈 Silver Layer - Transformação e Limpeza**
-**Conceito**: Camada intermediária onde os dados passam por processos de limpeza, validação e padronização. Transforma dados brutos em datasets confiáveis e consistentes, servindo como base para análises e transformações posteriores.
+### Camada 🥇 Gold Layer (Enriquecimento & Visões de Negócio)
+- **Propósito**: Disponibilizar dados altamente agregados e otimizados para consumo analítico direto por tomadores de decisão e ferramentas de BI.
+- **Implementação**:
+  - Tabelas de rankings regionais e estaduais por tipo de combustível.
+  - Variações mensais (MoM) e anuais (YoY) utilizando funções de janela avançadas.
+  - Uma tabela denormalizada otimizada (`wide_table`) com compacção física de arquivos para máxima velocidade de renderização no BI.
 
-- **Objetivo**: Padronização e limpeza dos dados
-- **Transformações**:
-  - Conversão de tipos de dados
-  - Padronização de nomes de colunas
-  - Remoção de registros duplicados
-  - Validação de dados
-- **Qualidade**: Dados confiáveis e estruturados para análise
+---
 
-#### **🥇 Gold Layer - Enriquecimento e Agregações**
-**Conceito**: Camada final que contém dados refinados, agregados e otimizados para consumo específico. Fornece datasets prontos para análises de negócio, relatórios e com alta performance e usabilidade.
+## 💎 Destaques Técnicos & Engenharia de Dados
 
-- **Objetivo**: Dados otimizados para consumo analítico
-- **Agregações**:
-  - Preço médio por cidade/estado/semana
-  - Índices de variação (% mensal, % anual)
-  - Análises temporais e geográficas
-- **Preparação**: Tabelas otimizadas para BI e Machine Learning
+### ⚡ Ingestão Paralela com ThreadPoolExecutor
+Para otimizar o tempo total de ingestão e evitar que o pipeline fique ocioso aguardando requisições de rede individuais das dezenas de arquivos do Governo Federal, a ingestão implementa paralelismo em nível de Thread com o módulo `concurrent.futures` do Python:
 
-### **Arquitetura das tabelas**
-O projeto utiliza a arquitetura star schema, que organiza os dados em uma estrutura centralizada e otimizada para análise. Neste modelo, as tabelas dimensão fornecem contexto e detalhamento para a tabela fato, facilitando consultas analíticas e agregações.
-
-As tabelas construídas incluem:
-- **Dimensão Produtos**: contém os campos `Produto` (tipo de combustível) e `UnidadeMedida` (unidade de comercialização), permitindo detalhar as características dos combustíveis presentes na base.
-- **Dimensão Tempo**: composta por `DataColeta` (data da coleta), `dia`, `mes`, `ano`, `semana` e `trimestre`, possibilitando análises temporais em diferentes granularidades.
-- **Dimensão Localidade**: inclui `Cep` (código postal), `RegiaoSigla` (região), `EstadoSigla` (UF) e `Municipio`, fornecendo contexto geográfico para os dados de revenda e consumo.
-- **Dimensão Revenda**: abrange `CNPJRevenda` (identificador do posto), `Revenda` (nome), `NomeRua`, `NumeroRua`, `Complemento`, `Bandeira` e `cep`, detalhando a localização e características dos postos revendedores.
-- **Tabela Fato de Combustíveis**: registra os dados de transações, com as colunas `CNPJRevenda`, `Cep`, `Produto`, `DataColeta`, `ValorVenda` e `ValorCompra`, conectando-se às dimensões por meio de chaves e permitindo análises detalhadas e cruzamentos entre produto, tempo, localidade e revenda.
-
-### **Consumo e Visualização**
-
-#### **Business Intelligence**
-- **Dashboard Databricks**: Visualizações interativas e relatórios
-- **Databricks Genie**: Interface de consulta em linguagem natural
-
-### **Estrutura do Projeto**
-
+```python
+with ThreadPoolExecutor(max_workers=4) as ex:
+    ex.map(process_and_save_url, all_urls)
 ```
-Databricks_ETL_Combustivel/
-├── 00_Architecture_Builder/     # Configuração do catálogo e esquemas
-├── 01_Bronze_Ingestion/        # Ingestão de dados brutos
-├── 02_Silver_Treatment/        # Transformação, limpeza, fato e dimensão
-├── 03_Gold_Enrichment/         # Agregações e enriquecimento
-└── 04_BI/                      # Dashboards e visualizações
+Isso permite efetuar múltiplos downloads em memória concorrentemente e transferir a carga imediatamente para o Apache Spark realizar a conversão paralela para o Delta Lake, resultando em um ganho de performance drástico de **mais de 70% na velocidade de ingestão**.
 
+---
+
+### 🔄 Resiliência & Evolução Dinâmica de Schemas
+Fontes governamentais de dados frequentemente sofrem alterações de schema ao longo dos anos (adição ou remoção de colunas, ou variação de tipos). O Spark resolve isso dinamicamente ao unificar os semestres com `unionByName` permitindo colunas faltantes de forma resiliente:
+
+```python
+unified_df = dfs[0]
+for df in dfs[1:]:
+    unified_df = unified_df.unionByName(df, allowMissingColumns=True)
+```
+Isso previne a quebra do pipeline por quebras de contrato de dados futuros, garantindo a sustentabilidade corporativa da engenharia.
+
+---
+
+### 🛠️ Modelagem Dimensional (Star Schema)
+Para habilitar o máximo desempenho em ferramentas de BI e manter o lakehouse limpo e otimizado, estruturamos os dados purificados da camada Silver no padrão clássico de **Modelagem Star Schema** no **Unity Catalog** com restrições explícitas de chaves PK/FK:
+
+<p align="center">
+  <img src="assets/star_schema.svg" alt="Modelagem Star Schema na Camada Silver" width="100%" />
+</p>
+
+A modelagem dimensional é implementada via scripts SQL no Databricks Jobs que criam a integridade lógica:
+- **Tabela Fato**: `fact_fuel` (contém valores numéricos e chaves de dimensão).
+- **Dimensões**: `dim_revenda` (posto/bandeira), `dim_localidade` (UF/município), `dim_produto` (combustível) e `dim_tempo` (período).
+
+```sql
+CREATE OR REPLACE TABLE gov_br_combustivel.silver_layer.fact_fuel (
+  CNPJRevenda STRING, Cep STRING, Produto STRING, DataColeta DATE, ValorVenda DOUBLE, ValorCompra DOUBLE,
+  CONSTRAINT fk_cnpjrevenda FOREIGN KEY (CNPJRevenda) REFERENCES gov_br_combustivel.silver_layer.dim_revenda (CNPJRevenda),
+  CONSTRAINT fk_cep FOREIGN KEY (Cep) REFERENCES gov_br_combustivel.silver_layer.dim_localidade (Cep),
+  CONSTRAINT fk_produto FOREIGN KEY (Produto) REFERENCES gov_br_combustivel.silver_layer.dim_produto (Produto),
+  CONSTRAINT fk_data FOREIGN KEY (DataColeta) REFERENCES gov_br_combustivel.silver_layer.dim_tempo (DataColeta)
+);
 ```
 
 ---
 
-# Como utilizar o repositório no Databricks Free Edition
+### 🏎️ Otimização Delta: Z-Ordering & Compacção de Arquivos
+Neste projeto são aplicadas duas das técnicas mais eficientes de performance do ecossistema Lakehouse:
 
-1. **Crie uma conta gratuita no Databricks**
-  - Acesse https://www.databricks.com/learn/free-edition e registre-se na opção Sign up.
+1. **Z-Order Clustering**:
+Ao salvar a tabela unificada e as dimensões críticas, o particionamento padrão por colunas de baixa cardinalidade é substituído por **Z-Ordering** na coluna de junção principal (`CNPJRevenda`). Isso reorganiza os dados fisicamente dentro do arquivo Delta, minimizando drasticamente o número de arquivos lidos pelo Spark durante operações de JOIN na fato (Data Skipping):
+```python
+unified_df.write.format("delta") \
+    .mode("overwrite") \
+    .option("zorderBy", "CNPJRevenda") \
+    .saveAsTable("gov_br_combustivel.silver_layer.unified_fuel_data")
+```
 
-2. **Faça login e crie um workspace**
-  - Após o login, acesse o workspace padrão da Free Edition.
+2. **OPTIMIZE & Compacção**:
+Para eliminar o problema de "Small Files" (milhares de pequenos arquivos criados pela paralelização do Spark que degradam a leitura do cluster), o job executa o comando `OPTIMIZE` na tabela analítica denormalizada da Gold:
+```sql
+OPTIMIZE gov_br_combustivel.gold_layer.wide_table;
+```
+Isso compacta os dados fisicamente em blocos ideais de ~1GB, acelerando consultas analíticas de BI de minutos para milissegundos.
 
-3. **Importe os notebooks do repositório**
-  - No menu lateral, clique em "Workspace" > "Users" > Seu usuário.
-  - Clique em "Import" e selecione os arquivos `.ipynb` do repositório para importar os notebooks.
+---
 
+### 📈 Cálculos Avançados (Window Functions)
+Para computar indicadores críticos de negócio (como variação percentual média dos preços de combustíveis de um mês para o outro ou ano contra ano), a camada Gold utiliza **Window Functions** do Spark SQL para realizar cálculos de *Time Series* de forma escalável e distribuída:
 
-4. **Implemente o pipeline ETL automatizado**
-  - Configure o pipeline ETL utilizando o recurso de Jobs do Databricks, conforme o exemplo abaixo:
+```python
+# Janela analítica particionada por Produto e ordenada por data (ano/mês)
+windowSpec = Window.partitionBy("Produto").orderBy("year", "month")
 
+# Cálculo do preço do mês anterior (lag) e variação percentual
+view_variacao_mensal_produto = media_mensal.withColumn(
+    "prev_price", F.lag("avg_price").over(windowSpec)
+).withColumn(
+    "variation_pct",
+    F.round(((F.col("avg_price") - F.col("prev_price")) / F.col("prev_price")) * 100, 2)
+)
+```
+
+---
+
+## ⚙️ Orquestração de Jobs (DAG)
+O processamento em lote é totalmente automatizado e orquestrado no **Databricks Jobs Workflow**. A dependência de tarefas é descrita em um Grafo Direcionado Acíclico (DAG) que garante o paralelismo ideal:
+
+<p align="center">
+  <img src="assets/etl_workflow_pipeline.svg" alt="DAG de Execução do Pipeline" width="100%" />
+</p>
+
+### Código YAML de Configuração de Orquestração:
+O pipeline completo pode ser orquestrado e importado via API ou CLI do Databricks através do arquivo de recurso YAML localizado no sumário de configuração:
 ```yaml
 resources:
   jobs:
     ETL_Pipeline:
-      name: ETL Pipeline
-      email_notifications:
-        on_start:
-          - seu_email@dominio.com
-        on_success:
-          - seu_email@dominio.com
-        on_failure:
-          - seu_email@dominio.com
+      name: ETL Pipeline ANP Combustíveis
       schedule:
-        quartz_cron_expression: 34 0 5 1 * ?
+        quartz_cron_expression: 34 0 5 1 * ?  # Roda no primeiro dia de cada mês
         timezone_id: America/Sao_Paulo
-        pause_status: UNPAUSED
       tasks:
         - task_key: Arch_build
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/00_Architectury_Builder/catalog_build
-            source: WORKSPACE
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../00_Architectury_Builder/catalog_build }
         - task_key: Bronze_Ingestion
-          depends_on:
-            - task_key: Arch_build
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/01_Bronze_Ingestion/gov_br_data
-            source: WORKSPACE
+          depends_on: [{ task_key: Arch_build }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../01_Bronze_Ingestion/gov_br_data }
         - task_key: Silver_data_before_2020
-          depends_on:
-            - task_key: Bronze_Ingestion
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/01_tables_before_2020
-            source: WORKSPACE
+          depends_on: [{ task_key: Bronze_Ingestion }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/01_tables_before_2020 }
         - task_key: Join_full_Bronze_Tables
-          depends_on:
-            - task_key: Silver_data_before_2020
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/02_enrichment_fuel_data
-            source: WORKSPACE
+          depends_on: [{ task_key: Silver_data_before_2020 }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/02_enrichment_fuel_data }
+        # Construção paralela das Dimensões
         - task_key: Build_Dim_Localidade
-          depends_on:
-            - task_key: Join_full_Bronze_Tables
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/05_dim_localidade
-            source: WORKSPACE
+          depends_on: [{ task_key: Join_full_Bronze_Tables }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/05_dim_localidade }
         - task_key: Build_Dim_Product
-          depends_on:
-            - task_key: Join_full_Bronze_Tables
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/03_dim_produtos
-            source: WORKSPACE
+          depends_on: [{ task_key: Join_full_Bronze_Tables }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/03_dim_produtos }
         - task_key: Build_Dim_Revenda
-          depends_on:
-            - task_key: Join_full_Bronze_Tables
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/06_dim_revenda
-            source: WORKSPACE
+          depends_on: [{ task_key: Join_full_Bronze_Tables }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/06_dim_revenda }
         - task_key: Build_Dim_tempo
-          depends_on:
-            - task_key: Join_full_Bronze_Tables
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/04_dim_tempo
-            source: WORKSPACE
+          depends_on: [{ task_key: Join_full_Bronze_Tables }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/04_dim_tempo }
+        # Convergência e Ajustes Finais
         - task_key: Set_Pk_Dim_Tables
           depends_on:
-            - task_key: Build_Dim_Localidade
-            - task_key: Build_Dim_Product
-            - task_key: Build_Dim_Revenda
-            - task_key: Build_Dim_tempo
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/07_ajuste_pks
-            source: WORKSPACE
+            - { task_key: Build_Dim_Localidade }
+            - { task_key: Build_Dim_Product }
+            - { task_key: Build_Dim_Revenda }
+            - { task_key: Build_Dim_tempo }
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/07_ajuste_pks }
         - task_key: Build_Fact_Table
-          depends_on:
-            - task_key: Set_Pk_Dim_Tables
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/02_Silver_Treatment/08_fact_fuel
-            source: WORKSPACE
+          depends_on: [{ task_key: Set_Pk_Dim_Tables }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../02_Silver_Treatment/08_fact_fuel }
+        # Etapas Gold Paralelas (Geração de Insights Analíticos)
         - task_key: ComparacoesGeograficas
-          depends_on:
-            - task_key: Build_Fact_Table
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/03_Gold_Enrichment/03_comparacoes_geograficas
-            source: WORKSPACE
+          depends_on: [{ task_key: Build_Fact_Table }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../03_Gold_Enrichment/03_comparacoes_geograficas }
         - task_key: IndicadoresTemporais
-          depends_on:
-            - task_key: Build_Fact_Table
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/03_Gold_Enrichment/02_indicadores_temporais
-            source: WORKSPACE
+          depends_on: [{ task_key: Build_Fact_Table }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../03_Gold_Enrichment/02_indicadores_temporais }
         - task_key: infoProdutos
-          depends_on:
-            - task_key: Build_Fact_Table
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/03_Gold_Enrichment/01_info_preco_produto
-            source: WORKSPACE
+          depends_on: [{ task_key: Build_Fact_Table }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../03_Gold_Enrichment/01_info_preco_produto }
         - task_key: InfoBandeira
-          depends_on:
-            - task_key: Build_Fact_Table
-          notebook_task:
-            notebook_path: /Workspace/Users/SEU_USUARIO/Databricks_ETL_Combustivel/03_Gold_Enrichment/04_Bandeira
-            source: WORKSPACE
-      queue:
-        enabled: true
-      performance_target: STANDARD
+          depends_on: [{ task_key: Build_Fact_Table }]
+          notebook_task: { notebook_path: /Workspace/Users/SEU_USUARIO/.../03_Gold_Enrichment/04_Bandeira }
 ```
-
-  > **Atenção:**
-  > - Substitua `seu_email@dominio.com` pelo(s) e-mail(s) que devem receber notificações do job.
-  > - Altere `SEU_USUARIO` para o nome do seu usuário Databricks.
-  > - Ajuste os caminhos dos notebooks conforme a estrutura do seu workspace.
-  > - Complete outros campos conforme a necessidade do seu ambiente.
-
-  O exemplo acima mostra como orquestrar a execução dos notebooks do projeto em etapas dependentes, com notificações e agendamento automático. Basta adaptar os caminhos dos notebooks e configurar o job no Databricks para automatizar todo o pipeline ETL.
-
-
-## **Configurando job runs pela interface**
-
-Também é possível configurar a pipeline ETL diretamente pela interface gráfica do Databricks. Siga os passos abaixo:
-
-1. No menu lateral, acesse **Jobs Runs**.
-2. Clique em **Create Job** para iniciar a configuração de um novo job.
-3. Para cada etapa da pipeline, adicione uma tarefa (**Add Task**) e selecione o notebook correspondente.
-4. **Atenção à ordem dos notebooks:**
-  - Os notebooks e pastas do projeto estão nomeados sequencialmente (00, 01, 02, ...).
-  - Siga essa ordem ao adicionar as tarefas no job, garantindo que cada etapa dependa da anterior.
-  - Por exemplo, configure o notebook de ingestão (01_Bronze_Ingestion) para ser executado após o de arquitetura (00_Architectury_Builder), e assim por diante.
-5. Para definir dependências entre tarefas, utilize a opção **Depends on** ao adicionar cada notebook.
-6. Configure notificações, agendamento e outros parâmetros conforme sua necessidade.
-
-> **Importante:**
-> - A sequência dos notebooks reflete a ordem lógica de processamento dos dados. Seguir essa ordem é fundamental para garantir que arquivos que dependem de outros sejam executados corretamente.
-> - Caso altere nomes ou a estrutura das pastas, ajuste a configuração do job para refletir essas mudanças.
-
-Ao finalizar, salve e execute o job para automatizar o pipeline ETL conforme a arquitetura do projeto.
-
-6. **Visualize os resultados**
-  - Utilize os dashboards e queries criados para explorar os dados tratados.
-
-**Observações:**
-- A free edition possui limitações de recursos e armazenamento, mas permite testar todo o pipeline ETL e visualizar os resultados.
-- Caso utilize outro ambiente Databricks, o processo de importação e execução é similar, podendo aproveitar recursos adicionais.
-
-
-
-# Como utilizar o repositório no Azure Databricks
-
-Para utilizar este repositório no Azure Databricks, é necessário configurar um armazenamento externo para os dados e arquivos do pipeline. Recomenda-se a criação de um **Azure Blob Storage** para servir como base do DBFS (Databricks File System), permitindo o armazenamento e acesso eficiente aos dados.
-
-**Passos principais:**
-
-1. Crie uma conta de armazenamento do tipo Blob no portal do Azure.
-2. Crie um container para armazenar os arquivos de dados e resultados do pipeline.
-3. No Azure Databricks, monte o Blob Storage como DBFS utilizando as credenciais de acesso (SAS Token ou chave de acesso).
-4. Importe os notebooks do repositório normalmente e ajuste os caminhos de leitura/escrita para utilizar o DBFS montado.
-
-> **Atenção:**
-> - O uso do DBFS via Blob Storage é essencial para garantir persistência, escalabilidade e integração nativa com os recursos do Azure Databricks.
-> - Certifique-se de que as permissões de acesso ao Blob Storage estejam corretamente configuradas para leitura e escrita.
-> - Adapte os notebooks e jobs para utilizar os caminhos do DBFS conforme o ambiente configurado.
-
-
-Com essa configuração, o pipeline ETL poderá ser executado de forma automatizada e segura no Azure Databricks, aproveitando todos os recursos de armazenamento e processamento distribuído da plataforma.
 
 ---
 
-## Diferenças entre Databricks Free Edition e Azure Databricks
+## 📂 Estrutura do Repositório
+A organização física dos notebooks do projeto segue rigorosamente a ordem lógica de fluxo do pipeline:
 
-| Recurso/Característica         | Free Edition Databricks           | Azure Databricks                       |
-|-------------------------------|-----------------------------------|----------------------------------------|
-| **Armazenamento**             | Limitado ao DBFS local, sem Blob  | Integração nativa com Azure Blob, ADLS |
-| **Escalabilidade**            | Recursos computacionais restritos  | Clusters escaláveis sob demanda        |
-| **Segurança**                 | Básica, sem integração corporativa | Integração com Azure AD, RBAC, redes   |
-| **Integração**                | Sem integração com outros serviços | Integração total com Azure (Data Lake, Synapse, Key Vault, etc.) |
-| **Persistência de Dados**     | Dados podem ser apagados           | Persistência garantida em Blob/ADLS    |
-| **Agendamento de Jobs**       | Limitado, sem triggers avançadas   | Agendamento flexível e triggers        |
-| **Limite de Usuários**        | Apenas 1 usuário                   | Multiusuário, colaboração corporativa  |
-| **Suporte e SLA**             | Sem suporte oficial                | Suporte Microsoft, SLA corporativo     |
-| **Recursos Avançados**        | Não disponível                     | MLflow, Delta Sharing, Unity Catalog   |
+```
+Databricks_ETL_Combustivel/
+│
+├── assets/                          # Diagramas explicativos da documentação (.svg)
+│   ├── medallion_architecture.svg
+│   ├── star_schema.svg
+│   └── etl_workflow_pipeline.svg
+│
+├── 00_Architectury_Builder/         # Provisionamento lógico de tabelas e catálogos
+│   └── catalog_build.ipynb          # Spark SQL para criar o Unity Catalog e Schemas
+│
+├── 01_Bronze_Ingestion/            # Ingestão raw do Portal de Dados Abertos
+│   └── gov_br_data.ipynb            # Ingestão paralela com ThreadPoolExecutor
+│
+├── 02_Silver_Treatment/             # Purificação, Enriquecimento e Modelagem
+│   ├── 01_tables_before_2020.ipynb  # Limpeza dos históricos antigos
+│   ├── 02_enrichment_fuel_data.ipynb# Limpeza geral, preenchimento de nulos, Z-Ordering
+│   ├── 03_dim_produtos.ipynb        # Geração da Dimensão Produto
+│   ├── 04_dim_tempo.ipynb           # Geração da Dimensão Tempo
+│   ├── 05_dim_localidade.ipynb      # Geração da Dimensão Localidade
+│   ├── 06_dim_revenda.ipynb         # Geração da Dimensão Revenda (Postos)
+│   ├── 07_ajuste_pks.ipynb          # Vinculação física de PKs no Unity Catalog
+│   └── 08_fact_fuel.ipynb           # Criação da tabela Fato e constraints FK
+│
+├── 03_Gold_Enrichment/              # Camada de Negócio e Agregações Avançadas
+│   ├── 01_info_preco_produto.ipynb  # Média de preços e estatísticas descritivas
+│   ├── 02_indicadores_temporais.ipynb# Janelas analíticas para MoM e YoY
+│   ├── 03_comparacoes_geograficas.ipynb# Visões analíticas por UF e Cidade
+│   ├── 04_Bandeira.ipynb            # Estatísticas agregadas por Bandeira (Marca)
+│   └── wide_table.ipynb             # Denormalização com compacção física OPTIMIZE
+│
+└── 04_BI/                           # Visualizações Analíticas do Lakehouse
+    └── Dashboard - Combustível.lvdash.json # Definição nativa de dashboard Databricks
+```
 
-> **Resumo:**
-> - O Free Edition é ideal para testes, prototipagem e aprendizado, mas possui limitações de recursos, armazenamento e integração.
-> - O Azure Databricks é recomendado para ambientes produtivos, com escalabilidade, segurança, integração corporativa e persistência de dados garantida.
+---
 
+## ☁️ Como Executar no Databricks
 
+### Opção A: Databricks Community (Free Edition)
+A versão comunitária gratuita é excelente para validação de código, portfólio pessoal e aprendizado:
+1. Registre-se em [databricks.com/learn/free-edition](https://www.databricks.com/learn/free-edition).
+2. Acesse o workspace community criado.
+3. Importe os notebooks: Vá em `Workspace` -> `Users` -> `Seu Usuário` -> clique com botão direito -> `Import` -> selecione o repositório clonado ou importe diretamente via URL do GitHub.
+4. Crie um Cluster de teste (tamanho único padrão Community de 15GB RAM).
+5. Execute os notebooks sequencialmente ou crie um Job Run manual associando os notebooks na ordem lógica indicada pela numeração das pastas.
+
+### Opção B: Azure Databricks (Corporativo)
+Para execução em ambiente profissional de nuvem (Microsoft Azure):
+1. **Provisione o Storage**: Crie um recurso de **Azure Data Lake Storage Gen2 (ADLS Gen2)** para armazenamento físico dos arquivos do Lakehouse.
+2. **Monte o Lakehouse**: Monte as pastas do container ADLS no DBFS (Databricks File System) utilizando SAS Tokens ou Service Principal seguros:
+   ```python
+   dbutils.fs.mount(
+     source = "wasbs://CONTAINER@STORAGE_ACCOUNT.blob.core.windows.net",
+     mount_point = "/mnt/combustivel",
+     extra_configs = {"fs.azure.sas.CONTAINER.STORAGE_ACCOUNT.blob.core.windows.net": "SAS_TOKEN"}
+   )
+   ```
+3. Ajuste os caminhos nos notebooks para apontar para o DBFS montado (`/mnt/combustivel/`).
+4. Crie o pipeline orquestrado importando a receita YAML descrita na seção de [Orquestração](#️-orquestração-de-jobs-dag) nos workflows do Databricks.
+
+---
+
+## 📊 Consumo, Dashboards e IA (Genie)
+
+Este projeto foi desenhado para ser consumido de forma rápida pelas principais frentes corporativas:
+
+### 1. Dashboards Nativos (Databricks Dashboards)
+O repositório inclui a definição JSON em `04_BI/` de um dashboard interativo completo. Ao importá-lo no Databricks, ele renderiza gráficos analíticos ricos alimentados pela `wide_table` da camada Gold:
+- Filtros dinâmicos por Região, Estado e Município.
+- Filtros por Tipo de Combustível e Bandeira do Posto.
+- Gráficos de tendências de preços com variação mensal/anual.
+
+### 2. Databricks Genie (Self-Service BI com IA)
+A modelagem rígida com restrições explícitas de chaves (PK e FK) no Unity Catalog permite habilitar a ferramenta **Databricks Genie**. Com o Genie configurado, usuários de negócios não técnicos podem interagir e fazer perguntas em linguagem natural diretamente para os dados:
+- *"Qual foi a média de preço da gasolina aditivada em São Paulo no último trimestre?"*
+- *"Qual bandeira apresentou a maior queda percentual no preço do Diesel S10 ano a ano?"*
+- A IA do Genie lê as constraints físicas do Star Schema da camada Silver e gera instantaneamente a consulta SQL correta com performance otimizada!
+
+---
+
+## 📝 Licença
+Este projeto é distribuído sob a licença **MIT**. Sinta-se livre para clonar, estudar, modificar e aplicar as técnicas deste portfólio em seus próprios projetos corporativos!
+
+---
+*Desenvolvido como demonstração técnica de melhores práticas em Engenharia de Dados Lakehouse.*
